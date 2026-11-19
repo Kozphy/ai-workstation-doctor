@@ -1,0 +1,14 @@
+docs/STRATEGY.md
+  h_194a459ba8b8ba 1-527
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bdc0282ad5206eb89f1f3571a8f27858b3178148",
+  "prompts": {},
+  "humans": {
+    "h_194a459ba8b8ba": {
+      "author": "Zixsa <dbdf0147@gmail.com>"
+    }
+  }
+}
