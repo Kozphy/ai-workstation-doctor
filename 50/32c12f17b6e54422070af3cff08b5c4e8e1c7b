@@ -1,0 +1,16 @@
+README.md
+  h_194a459ba8b8ba 1-15
+llama_autostart.py
+  h_194a459ba8b8ba 1-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5032c12f17b6e54422070af3cff08b5c4e8e1c7b",
+  "prompts": {},
+  "humans": {
+    "h_194a459ba8b8ba": {
+      "author": "Zixsa <dbdf0147@gmail.com>"
+    }
+  }
+}
