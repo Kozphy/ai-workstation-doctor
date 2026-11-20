@@ -1,6 +1,6 @@
 # AI Workstation Doctor — Architecture (Foundation)
 
-This document describes the **Python foundation** plus the first M1 content slice (local AI port checker). GPU/runner managers, repairs, and a Rust core remain deferred.
+This document describes the **Python foundation** plus the M1 content slice (Windows system probe and local AI port checker). The llama.cpp lifecycle manager remains the legacy `llama_autostart.py` helper. Other runner managers, repairs, and a Rust core remain deferred.
 
 ## Goals
 
@@ -54,8 +54,8 @@ src/awd/
   cli/           # awd scan | report | status
   app/           # ScanService, StatusService, AppContainer
   domain/        # Fact, Finding, ScanSession, Protocols
-  collectors/    # PythonRuntimeCollector, LocalAiPortsCollector
-  checks/        # PythonVersionCheck, port catalog / any-primary-runner
+  collectors/    # PythonRuntimeCollector, LocalAiPortsCollector, WindowsSystemCollector
+  checks/        # PythonVersionCheck, WindowsSystemProbeCheck, port checks
   rules/         # SimpleRuleEngine (DAG + skip)
   reports/       # MarkdownReportWriter
   database/      # schema.sql, SqliteFactStore
@@ -107,12 +107,15 @@ ScanService(
 ## What ships now
 
 1. **Collector** `python.runtime` — interpreter version, executable, OS identity
-2. **Collector** `ports.local_ai` — TCP probe of common local-AI ports (M1 port checker)
-3. **Check** `python.version.min` — requires Python ≥ 3.12
-4. **Check** `ports.catalog` — summarizes open/closed catalog ports
-5. **Check** `ports.any_primary_runner` — WARN if llama.cpp / Ollama / LM Studio ports are all closed
-6. **Engine** — dependency-aware evaluation (skip children when parents fail)
-7. **Report** — Redacted Markdown summary of findings + fact table (shareable)
+2. **Collector** `system.windows` — read-only OS, CPU, memory, GPU, disk, and CUDA-tool facts on Windows
+3. **Collector** `ports.local_ai` — bounded TCP probes of common local-AI ports (M1 port checker)
+4. **Check** `python.version.min` — requires Python ≥ 3.12
+5. **Check** `system.windows_probe` — makes unsupported or failed hardware probes visible
+6. **Checks** `ports.catalog`, `ports.any_primary_runner` — summarize ports and warn if all primary runner ports are closed
+7. **Engine** — dependency-aware evaluation (skip children when parents fail)
+8. **Report** — Redacted Markdown summary of findings + fact table (shareable)
+
+The Windows hardware subprocess has a five-second timeout; the optional `nvidia-smi` probe has a two-second timeout. No scan collector installs software, starts/stops services, or changes host configuration.
 
 ### Port catalog (stable)
 
@@ -142,13 +145,12 @@ Longer paths are replaced first. Injection via `RedactionProfile` keeps unit tes
 
 ## Explicitly deferred
 
-- WMI / NVML / CUDA collectors in `awd` (still available via legacy `llama_autostart.py scan`)
 - HTTP runner health probes, Ollama / llama.cpp managers under `awd`
 - YAML check packs / WASM plugins
 - Repair planner and elevated helper
 - Tauri UI / fleet agent
 
-Next increments: system/GPU facts, then runner HTTP probes, then managers — still behind the same Protocol ports. See `docs/GAP_ANALYSIS.md`.
+Next increments: Ollama manager and expanded checks, then demand-gated Rust/Tauri work. See `docs/GAP_ANALYSIS.md` and `docs/IMPLEMENTATION_MILESTONES.md`.
 
 ## Commands
 

@@ -24,9 +24,14 @@ def test_scan_service_end_to_end(container: AppContainer, tmp_path: Path) -> Non
 
     assert outcome.session.status == SessionStatus.COMPLETED
     assert outcome.facts
+    assert any(f.key == "system.probe_status" for f in outcome.facts)
     assert any(f.key == "ports.results" for f in outcome.facts)
     by_id = {f.check_id: f for f in outcome.findings}
     assert by_id["python.version.min"].status == FindingStatus.PASS
+    assert by_id["system.windows_probe"].status in {
+        FindingStatus.PASS,
+        FindingStatus.WARN,
+    }
     assert by_id["ports.catalog"].status == FindingStatus.PASS
     assert by_id["ports.any_primary_runner"].status in {
         FindingStatus.PASS,

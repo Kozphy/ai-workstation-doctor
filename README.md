@@ -1,21 +1,38 @@
 # AI Workstation Doctor (`awd`)
 
-Windows-first local-AI diagnostics tool. Ships a modular Python CLI with SQLite fact store, the **M1 local AI port checker**, and **redacted shareable Markdown reports**.
+**Windows-first diagnostics for local AI.** Find why Ollama, llama.cpp, LM Studio, or OpenWebUI is not responding — ports, GPU/CUDA tools, and system facts — then share a **redacted** Markdown report.
 
-The legacy `llama_autostart.py` helper remains for llama.cpp auto-start and richer Windows/GPU scanning until those flows are ported into `awd`.
+[![CI](https://github.com/Kozphy/ai-workstation-doctor/actions/workflows/tests.yml/badge.svg)](https://github.com/Kozphy/ai-workstation-doctor/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
 
-## Requirements
+> Community edition is **free**. Need it installed or fixed on your PC? See [Support & commercial use](docs/SUPPORT.md).
 
-- Python 3.12+
-- Windows recommended (collectors will be Windows-oriented; tests run cross-platform)
+## Why this exists
 
-## Install
+Local AI fails in the gaps between tools: CUDA missing, wrong port, runner down, GPU idle. AI Workstation Doctor is the reliability layer — diagnose locally, keep data on-device, share a safe report when you need help.
+
+## Quick start
 
 ```bash
+git clone https://github.com/Kozphy/ai-workstation-doctor.git
+cd ai-workstation-doctor
 pip install -e ".[dev]"
+awd scan -o workstation-report.md
+awd status
 ```
 
-## Commands
+Requirements: **Python 3.12+**. Windows recommended (system/GPU collectors are Windows-oriented; core tests run cross-platform).
+
+## What `awd scan` does today
+
+| Capability | Detail |
+| --- | --- |
+| Port checker | Probes `9931`, `11434`, `1234`, `3000`, `8080`, `8000` |
+| System / GPU | OS, CPU, memory, GPU, disk (Windows); CUDA tools + `nvidia-smi` when present |
+| Python baseline | Requires 3.12+ |
+| Shareable report | Markdown with `<user>`, `<userprofile>`, `<home>`, `<host>` redaction |
+| Local store | SQLite at `~/.awd/awd.db` (override with `--db`) |
 
 ```bash
 awd scan
@@ -25,29 +42,29 @@ awd report
 awd report -o workstation-report.md
 ```
 
-`awd scan` currently collects Python runtime facts and probes common local-AI ports (`9931`, `11434`, `1234`, `3000`, `8080`, `8000`). It warns when no primary runner port (llama.cpp / Ollama / LM Studio) is open.
+The scanner is **read-only**. For llama.cpp autostart on Windows:
 
-Markdown reports (`awd scan -o …` / `awd report`) redact username, home/profile paths, and hostname so you can share them when asking for help.
+```text
+python llama_autostart.py install
+python llama_autostart.py start
+python llama_autostart.py status
+python llama_autostart.py stop
+python llama_autostart.py uninstall
+```
 
-Database default: `~/.awd/awd.db`  
-Override with `--db path\to\file.db`.
+Requires `llama` on PATH (`winget install ggml.llamacpp`).
 
 ## Project layout
 
 ```text
-src/awd/
-  cli/          # awd scan | report | status
-  app/          # use-cases + DI container
-  domain/       # models + Protocol interfaces
-  collectors/   # read-only probes (python, ports)
-  checks/       # diagnostic evaluations
-  rules/        # dependency-aware check engine
-  reports/      # Redacted Markdown writer
-  database/     # SQLite schema + FactStore
+src/awd/          # Modular CLI: collectors, checks, SQLite, reports
+llama_autostart.py
 tests/
-docs/ARCHITECTURE.md
-docs/GAP_ANALYSIS.md
-docs/STRATEGY.md
+docs/
+  ARCHITECTURE.md
+  GAP_ANALYSIS.md
+  STRATEGY.md
+  SUPPORT.md
 ```
 
 ## Development
@@ -57,13 +74,20 @@ pytest
 python -m awd scan --db %TEMP%\awd-dev.db
 ```
 
-## Architecture
+CI runs on Windows and Ubuntu (Python 3.12 / 3.14).
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for layering, schema, interfaces, and Rust-migration notes.  
-See [docs/GAP_ANALYSIS.md](docs/GAP_ANALYSIS.md) for roadmap coverage vs `STRATEGY.md`.
+## Docs
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Gap analysis vs roadmap](docs/GAP_ANALYSIS.md)
+- [Product strategy](docs/STRATEGY.md)
+- [Support & commercial use](docs/SUPPORT.md)
+- [Implementation milestones](docs/IMPLEMENTATION_MILESTONES.md)
 
 ## Privacy
 
-Scans and reports are local-only. Nothing is sent off-device.
+Scans and reports stay on your machine. Nothing is sent off-device. Only rendered Markdown is redacted for sharing; the local DB keeps raw facts for `awd status`.
 
-Shareable reports replace local identity with placeholders (`<user>`, `<userprofile>`, `<home>`, `<host>`). Raw facts remain in the local SQLite DB for `awd status`; only rendered Markdown is redacted.
+## License
+
+[MIT](LICENSE) © Kozphy

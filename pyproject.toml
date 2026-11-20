@@ -28,6 +28,12 @@ dev = [
   "pytest-cov>=5.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Kozphy/ai-workstation-doctor"
+Repository = "https://github.com/Kozphy/ai-workstation-doctor"
+Issues = "https://github.com/Kozphy/ai-workstation-doctor/issues"
+Support = "https://github.com/Kozphy/ai-workstation-doctor/blob/main/docs/SUPPORT.md"
+
 [project.scripts]
 awd = "awd.cli.main:main"
 

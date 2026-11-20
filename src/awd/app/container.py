@@ -11,8 +11,10 @@ from pathlib import Path
 
 from awd.checks.ports import AnyPrimaryRunnerPortCheck, PortCatalogCheck
 from awd.checks.python_version import PythonVersionCheck
+from awd.checks.system import WindowsSystemProbeCheck
 from awd.collectors.ports import LocalAiPortsCollector
 from awd.collectors.python_runtime import PythonRuntimeCollector
+from awd.collectors.windows_system import WindowsSystemCollector
 from awd.database.connection import Database, default_db_path
 from awd.database.fact_store import SqliteFactStore
 from awd.domain.protocols import Check, Collector, FactStore, ReportWriter, RuleEngine
@@ -40,10 +42,12 @@ class AppContainer:
             fact_store=store,
             collectors=(
                 PythonRuntimeCollector(),
+                WindowsSystemCollector(),
                 LocalAiPortsCollector(),
             ),
             checks=(
                 PythonVersionCheck(),
+                WindowsSystemProbeCheck(),
                 PortCatalogCheck(),
                 AnyPrimaryRunnerPortCheck(),
             ),

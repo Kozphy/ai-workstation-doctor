@@ -36,10 +36,16 @@ class OllamaTests(unittest.TestCase):
             stdout="NAME ID SIZE\nllama3 x 4GB",
             stderr="",
         )
-        with patch("llama_autostart.powershell",
-                   return_value=Mock(returncode=0, stdout=ps_script_output)), \
-             patch("llama_autostart.shutil.which", return_value="C:\\Tools\\ollama.exe"), \
-             patch("llama_autostart.run_command", return_value=ps_result):
+        with patch(
+            "llama_autostart.powershell",
+            return_value=Mock(returncode=0, stdout=ps_script_output),
+        ), patch(
+            "llama_autostart.shutil.which",
+            return_value="C:\\Tools\\ollama.exe",
+        ), patch(
+            "llama_autostart.run_command",
+            return_value=ps_result,
+        ):
             result = llama_autostart.ollama_facts()
 
         self.assertEqual(result["service"]["state"], "Running")
@@ -61,7 +67,10 @@ class ReportTests(unittest.TestCase):
                 "gpu": [{"Name": "Test GPU"}],
             },
             "cuda": {"CUDA_PATH": None, "nvidia_smi": None, "nvcc": None},
-            "ports": {str(port): False for port in (9931, 11434, 1234, 3000, 8080, 8000)},
+            "ports": {
+                str(port): False
+                for port in (9931, 11434, 1234, 3000, 8080, 8000)
+            },
             "runners": {
                 "llama_cpp": {"reachable": False, "status": None},
                 "ollama": {"reachable": False, "status": None},
@@ -92,7 +101,10 @@ class ReportTests(unittest.TestCase):
         self.assertIn("llamacpp.server_stopped", report)
 
     def test_redaction_replaces_app_profile_and_username(self):
-        with patch.dict("os.environ", {"USERNAME": "Jane", "USERPROFILE": "C:\\Users\\Jane"}):
+        with patch.dict(
+            "os.environ",
+            {"USERNAME": "Jane", "USERPROFILE": "C:\\Users\\Jane"},
+        ):
             result = llama_autostart.redact("Jane is under C:\\Users\\Jane")
         self.assertNotIn("Jane", result)
         self.assertIn("<user>", result)

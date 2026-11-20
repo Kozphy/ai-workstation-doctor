@@ -1,16 +1,16 @@
 # Gap Analysis — AI Workstation Doctor vs STRATEGY.md (M1–M3)
 
-Date: 2026-11-20 (updated)  
+Date: 2026-11-20  
 Scope: repository vs Months 1–3 only. Fleet / Enterprise / Month 4+ ignored.
 
 ## 1. Gap analysis
 
 | Month | Roadmap item | Status |
 | --- | --- | --- |
-| M1 | Modular `awd scan` | **Partial** — pipeline + ports; limited system facts |
+| M1 | Modular `awd scan` | **Done** — pipeline, Windows facts, and ports |
 | M1 | Port checker | **Done** in `awd` |
 | M1 | llama.cpp Manager | **Partial** — `llama_autostart.py` only |
-| M1 | System / GPU / CUDA scan | **Partial** — legacy only |
+| M1 | System / GPU / CUDA scan | **Done** — read-only WMI facts plus optional `nvidia-smi` |
 | M2 | Ollama Manager | **Missing** in `awd` |
 | M2 | ~25 checks | **Missing** (few checks today) |
 | M2 | Shareable Markdown report | **Done** — redacted reports in `awd` |
@@ -25,41 +25,19 @@ Scope: repository vs Months 1–3 only. Fleet / Enterprise / Month 4+ ignored.
 
 ### Partial
 
-- System/GPU/CUDA scan (legacy)
-- Runner HTTP probing (legacy; TCP ports in `awd`)
-- llama.cpp / Ollama managers (legacy)
+- llama.cpp manager remains the legacy standalone helper
+- Runner HTTP probing is legacy-only; modular `awd` currently checks TCP ports
 
 ### Missing (M1–M3, in-scope)
 
-- System/GPU/CUDA collectors in `awd`
 - Runner HTTP reachability in `awd`
-- llama.cpp + Ollama managers under `awd`
+- llama.cpp lifecycle commands under `awd`
+- Ollama manager
 - Broader check pack (~25)
 - Rule-based log signatures (MVP listed; higher effort)
 
-## 2. Missing feature ranking (M1–M3 only)
+## 2. Verification and approval gates
 
-| Feature | User value | Impl. risk | MVP fit |
-| --- | --- | --- | --- |
-| Redacted shareable Markdown report | High (viral) | **Lowest** | Explicit MVP |
-| Runner HTTP reachability | High | Low | Runner detection |
-| System / GPU / CUDA scan in `awd` | Very high | Medium (WMI/smi) | Core MVP question |
-| llama.cpp Manager → `awd` | High | Low–Med | M1 |
-| Ollama Manager | High | Medium | M2 |
-| Expand toward 25 checks | High | High | M2 |
-| Rule-based log signatures | High | Medium–High | MVP but heavier |
+M1 must pass the Windows/Linux, Python 3.12/3.14 CI matrix and local integration suite. A real Windows scan must also confirm the emitted hardware facts against the machine before M2 is approved. The current collector is read-only; repairs and elevation remain out of scope.
 
-## 3. Implementation proposal (selected)
-
-**Feature:** Redacted shareable Markdown report  
-
-**Why this one:** STRATEGY MVP rates it High user value / Low complexity / High revenue impact (viral loop). Lowest risk among remaining MVP items (pure text transforms, no OS probes). Makes `awd scan -o report.md` safe to post when seeking help.
-
-**Approach:**
-
-1. `RedactionProfile` + `redact_text()` (username, profile, home, host; longest-first)
-2. Apply inside `MarkdownReportWriter` before write/return (on by default)
-3. Unit tests with injected profiles; keep `redact=False` for debugging
-4. Document privacy behavior in README / ARCHITECTURE / this file
-
-**Out of scope for this change:** system scan, managers, HTTP probes, Fleet, repairs.
+The 12-month milestones, acceptance criteria, project-local L1-L5 evidence mapping, and future approval gates are maintained in [IMPLEMENTATION_MILESTONES.md](IMPLEMENTATION_MILESTONES.md).
