@@ -1,0 +1,24 @@
+.gitignore
+  h_194a459ba8b8ba 1
+README.txt
+  h_194a459ba8b8ba 1-7
+install.ps1
+  h_194a459ba8b8ba 1-9
+start-llama-hidden.vbs
+  h_194a459ba8b8ba 1-4
+stop-llama.ps1
+  h_194a459ba8b8ba 1-3
+uninstall.ps1
+  h_194a459ba8b8ba 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "361c28fdeb3cdb3c43ee435e44d47600469e0731",
+  "prompts": {},
+  "humans": {
+    "h_194a459ba8b8ba": {
+      "author": "Zixsa <dbdf0147@gmail.com>"
+    }
+  }
+}
