@@ -1,1 +1,5 @@
 llama-server.log
+workstation-report.md
+workstation-report.json
+__pycache__/
+*.py[cod]
