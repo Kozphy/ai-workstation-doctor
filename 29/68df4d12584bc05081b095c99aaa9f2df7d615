@@ -1,0 +1,67 @@
+src/awd/collectors/windows_system.py
+  s_a1931755370e22::t_18136ca1d9a6ad 1-15,17-147,151,197-243
+  s_a1931755370e22::t_e2d23bbeeb7beb 16,148-150,152-196
+src/awd/app/container.py
+  s_a1931755370e22::t_18136ca1d9a6ad 14,17,45,50
+src/awd/checks/__init__.py
+  s_a1931755370e22::t_18136ca1d9a6ad 7,13
+tests/test_scan_and_cli.py
+  s_a1931755370e22::t_18136ca1d9a6ad 27,31-34
+src/awd/checks/system.py
+  s_a1931755370e22::t_18136ca1d9a6ad 1-65
+src/awd/database/connection.py
+  s_dde4457022dddd::t_eb02f14cf44973 7-8,36-38,40-45
+docs/ARCHITECTURE.md
+  s_a1931755370e22::t_b5f555d9e581bb 3,57-58,110-118,153
+pyproject.toml
+  s_dde4457022dddd::t_34477c4ce5ea61 31-36
+src/awd/collectors/__init__.py
+  s_a1931755370e22::t_18136ca1d9a6ad 7,9-13
+docs/IMPLEMENTATION_MILESTONES.md
+  s_a1931755370e22::t_b5f555d9e581bb 1-54
+README.md
+  s_dde4457022dddd::t_c704b5b24bdcb4 3,5-7,9,11,13,15,18-19,21-22,25-27,29-35,45,55,60-61,63-67,77,79,81-85,89,91,93
+  s_a1931755370e22::t_b5f555d9e581bb 14,28,47-53,80,90
+tests/test_legacy_llama_autostart.py
+  s_a1931755370e22::t_b5f555d9e581bb 39-48,70-73,104-107
+tests/test_windows_system_collector.py
+  s_a1931755370e22::t_18136ca1d9a6ad 1-8,16-27,29-45,52,54-55,57-67,69-77,80-91,94-111,116-120,122-129,131-132
+  s_a1931755370e22::t_e2d23bbeeb7beb 9-15,28,46-51,53,56,68,78-79,92-93,112-115,121,130
+  s_a1931755370e22::t_f57f0562d3c81f 133-135
+  s_a1931755370e22::t_e61c4fc18b0062 136-163
+docs/SUPPORT.md
+  s_dde4457022dddd::t_24412f02a94711 1-27
+.github/workflows/tests.yml
+  s_a1931755370e22::t_b5f555d9e581bb 1-27
+docs/GAP_ANALYSIS.md
+  s_a1931755370e22::t_b5f555d9e581bb 3,10,13,28-29,34-35,39,41,43
+tests/conftest.py
+  s_dde4457022dddd::t_dd96d8aa1e1301 5,16,31-34
+  s_dde4457022dddd::t_eb02f14cf44973 13-15,17-30,48-49
+LICENSE
+  s_dde4457022dddd::t_d1f91288bfb01a 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2968df4d12584bc05081b095c99aaa9f2df7d615",
+  "prompts": {},
+  "sessions": {
+    "s_a1931755370e22": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "019000a0-4336-4a2f-b759-ac2d95f42839",
+        "model": "unknown"
+      },
+      "human_author": "Zixsa <dbdf0147@gmail.com>"
+    },
+    "s_dde4457022dddd": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "750ba287-6f58-440d-a55a-7e79dfb37eaf",
+        "model": "default"
+      },
+      "human_author": "Zixsa <dbdf0147@gmail.com>"
+    }
+  }
+}
