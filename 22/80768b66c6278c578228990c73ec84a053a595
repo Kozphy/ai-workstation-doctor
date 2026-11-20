@@ -1,0 +1,122 @@
+src/awd/cli/__init__.py
+  s_dde4457022dddd::t_151c7742f11510 1-3
+src/awd/domain/protocols.py
+  s_dde4457022dddd::t_0111c66d9af70b 1-91
+src/awd/database/fact_store.py
+  s_dde4457022dddd::t_69421a96957ca3 1-176
+src/awd/app/container.py
+  s_dde4457022dddd::t_274a9740587f51 12,14,41-49
+  s_dde4457022dddd::t_33e47ba5e7ddbc 1-11,13,15-40,50-53
+docs/GAP_ANALYSIS.md
+  s_dde4457022dddd::t_3df85ed99f4f0d 1-2,5,7,18,20,43,47-49,57,59,64
+  s_dde4457022dddd::t_d78341988921fd 3-4,6,8-17,19,21-42,44-46,50-56,58,60-63,65
+pyproject.toml
+  s_dde4457022dddd::t_361b2c8951d3be 1-47
+tests/test_python_runtime_collector.py
+  s_dde4457022dddd::t_aa76c6278e3e8b 1-27
+src/awd/rules/engine.py
+  s_dde4457022dddd::t_602b76f2f24925 1-83
+src/awd/app/scan_service.py
+  s_dde4457022dddd::t_369adfb64b0800 1-105
+tests/conftest.py
+  s_dde4457022dddd::t_5ba5e33fc21b1b 1-26
+src/awd/database/schema.sql
+  s_dde4457022dddd::t_55243c5554b39f 1-47
+src/awd/__init__.py
+  s_dde4457022dddd::t_e44bf68b0f3b6c 1-6
+.gitignore
+  s_dde4457022dddd::t_8d2d3145469eb3 6-20
+src/awd/collectors/ports.py
+  s_dde4457022dddd::t_f02f477779fa1a 1-102
+src/awd/reports/__init__.py
+  s_dde4457022dddd::t_d88f1953cead70 1-5,7
+  s_dde4457022dddd::t_831018935658ed 6,8
+src/awd/cli/main.py
+  s_dde4457022dddd::t_34096f36f6d6dc 1-136
+src/awd/database/connection.py
+  s_dde4457022dddd::t_512e25196fc150 1-58
+src/awd/rules/__init__.py
+  s_dde4457022dddd::t_16c07f635600b5 1-7
+src/awd/domain/enums.py
+  s_dde4457022dddd::t_b46fdd41dd7738 1-33
+tests/test_rule_engine.py
+  s_dde4457022dddd::t_18d60f2204fa32 1-71
+tests/test_python_version_check.py
+  s_dde4457022dddd::t_daa74c753d9b96 1-38
+src/awd/reports/markdown.py
+  s_dde4457022dddd::t_f4532c2ab5f442 1,10,22,24-32,41-42,70-71,114-118
+  s_dde4457022dddd::t_bb367111ee7790 2-9,11-21,23,33-40,43-69,72-113,119-120
+docs/ARCHITECTURE.md
+  s_dde4457022dddd::t_fcd4d09446c87c 115
+  s_dde4457022dddd::t_d26a121e756485 3
+  s_dde4457022dddd::t_3d68d18fa2df50 1-2,4-56,59-106,108-109,116,118,147-150,152-163
+  s_dde4457022dddd::t_52a905070c2cf2 130-142
+  s_dde4457022dddd::t_0605203b19a23e 107,110-114,117,119-129,143-146,151
+  s_dde4457022dddd::t_20d3a27ead6e8b 57-58
+src/awd/domain/__init__.py
+  s_dde4457022dddd::t_b7b550e473e4aa 1-21
+src/awd/app/status_service.py
+  s_dde4457022dddd::t_8b991c076a5cab 1-57
+tests/test_ports_checks.py
+  s_dde4457022dddd::t_c5b957af73b0ac 1-78
+src/awd/domain/models.py
+  s_dde4457022dddd::t_a69b03a5ef9ebe 1-66
+tests/test_scan_and_cli.py
+  s_dde4457022dddd::t_bc9c0ef9e7aa66 27-34,39,43-45,55-56
+  s_dde4457022dddd::t_fa19cd18db2eae 1-26,35-38,40-42,46-54,57-58
+README.md
+  s_dde4457022dddd::t_9f55bc31597b28 1,7,9,11-25,32-35,38-41,43-44,46-48,51-57,60-61,64-67
+  s_dde4457022dddd::t_51ff92419e3969 5,10,28-29,42,49-50,62-63
+  s_dde4457022dddd::t_609a7a4dfec2df 69
+  s_dde4457022dddd::t_33e72d3a9db670 30-31
+  s_dde4457022dddd::t_7f33472218c0ec 3
+  s_dde4457022dddd::t_c033656b320094 45
+src/awd/logging_config.py
+  s_dde4457022dddd::t_0ac6a1556e069d 1-35
+src/awd/checks/__init__.py
+  s_dde4457022dddd::t_0b10d75214c20c 5,8-12
+  s_dde4457022dddd::t_2cf27071500b46 1-4,6-7
+src/awd/collectors/__init__.py
+  s_dde4457022dddd::t_d4a87cf2d82bee 5,8
+  s_dde4457022dddd::t_5167a7511ec4eb 1-4,6-7
+src/awd/database/__init__.py
+  s_dde4457022dddd::t_cbb5c0c3f538b2 1-8
+src/awd/app/__init__.py
+  s_dde4457022dddd::t_21e7832fa6296b 1-9
+tests/test_fact_store.py
+  s_dde4457022dddd::t_f6bb5634352144 1-57
+src/awd/checks/ports.py
+  s_dde4457022dddd::t_1b94fe7bbf073f 1-131
+src/awd/reports/redact.py
+  s_dde4457022dddd::t_0335bcd2bdd299 1-93
+tests/test_markdown_report.py
+  s_dde4457022dddd::t_b5432edb2049f5 1-78
+src/awd/__main__.py
+  s_dde4457022dddd::t_91b03c4a68106c 1-8
+tests/test_ports_collector.py
+  s_dde4457022dddd::t_5b423eb62551b2 1-31
+src/awd/checks/python_version.py
+  s_dde4457022dddd::t_c292793210c1fc 1-67,72-73
+  s_dde4457022dddd::t_0b710b1e2f314c 68-71,74-79
+tests/test_redact.py
+  s_dde4457022dddd::t_dcf9958c1f2d95 20,24
+  s_dde4457022dddd::t_a84092e5265b95 1-19,21-23,25-57
+src/awd/collectors/python_runtime.py
+  s_dde4457022dddd::t_b9ea1d306754f2 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2280768b66c6278c578228990c73ec84a053a595",
+  "prompts": {},
+  "sessions": {
+    "s_dde4457022dddd": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "750ba287-6f58-440d-a55a-7e79dfb37eaf",
+        "model": "default"
+      },
+      "human_author": "Zixsa <dbdf0147@gmail.com>"
+    }
+  }
+}
