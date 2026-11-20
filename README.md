@@ -1,28 +1,69 @@
-# AI Workstation Doctor / LlamaAutoStart
+# AI Workstation Doctor (`awd`)
 
-A Windows-first local-AI diagnostics tool and llama.cpp manager. It starts llama.cpp's server automatically and hidden at logon, scans common local-AI dependencies, checks ports and runner endpoints, and creates a shareable Markdown report.
+Windows-first local-AI diagnostics tool. Ships a modular Python CLI with SQLite fact store, the **M1 local AI port checker**, and **redacted shareable Markdown reports**.
 
-Requires Windows, Python 3.8+ (standard library only), and `llama` on PATH (`winget install ggml.llamacpp`).
+The legacy `llama_autostart.py` helper remains for llama.cpp auto-start and richer Windows/GPU scanning until those flows are ported into `awd`.
 
-## llama.cpp commands
+## Requirements
 
-```text
-python llama_autostart.py install    # start automatically at every logon
-python llama_autostart.py start      # start now, hidden
-python llama_autostart.py status     # task and server state
-python llama_autostart.py stop       # stop the server
-python llama_autostart.py uninstall  # turn auto-start off
+- Python 3.12+
+- Windows recommended (collectors will be Windows-oriented; tests run cross-platform)
+
+## Install
+
+```bash
+pip install -e ".[dev]"
 ```
 
-## Diagnostics
+## Commands
 
-```text
-python llama_autostart.py scan
-python llama_autostart.py scan --format json
-python llama_autostart.py scan --output workstation-report.md
-python llama_autostart.py scan --format json --output workstation-report.json
+```bash
+awd scan
+awd scan -o workstation-report.md
+awd status
+awd report
+awd report -o workstation-report.md
 ```
 
-The scan detects Windows hardware, GPU/CUDA tools, llama.cpp, Ollama, LM Studio, OpenWebUI, vLLM, and common local-AI ports. It also detects Ollama Windows services, running processes, environment variables, model directories, and active models. Reports are redacted for the Windows username and user profile.
+`awd scan` currently collects Python runtime facts and probes common local-AI ports (`9931`, `11434`, `1234`, `3000`, `8080`, `8000`). It warns when no primary runner port (llama.cpp / Ollama / LM Studio) is open.
 
-The llama.cpp server listens on http://127.0.0.1:9931 and writes to `llama-server.log` next to the script. Diagnostic reports are local-only and are never sent anywhere.
+Markdown reports (`awd scan -o …` / `awd report`) redact username, home/profile paths, and hostname so you can share them when asking for help.
+
+Database default: `~/.awd/awd.db`  
+Override with `--db path\to\file.db`.
+
+## Project layout
+
+```text
+src/awd/
+  cli/          # awd scan | report | status
+  app/          # use-cases + DI container
+  domain/       # models + Protocol interfaces
+  collectors/   # read-only probes (python, ports)
+  checks/       # diagnostic evaluations
+  rules/        # dependency-aware check engine
+  reports/      # Redacted Markdown writer
+  database/     # SQLite schema + FactStore
+tests/
+docs/ARCHITECTURE.md
+docs/GAP_ANALYSIS.md
+docs/STRATEGY.md
+```
+
+## Development
+
+```bash
+pytest
+python -m awd scan --db %TEMP%\awd-dev.db
+```
+
+## Architecture
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for layering, schema, interfaces, and Rust-migration notes.  
+See [docs/GAP_ANALYSIS.md](docs/GAP_ANALYSIS.md) for roadmap coverage vs `STRATEGY.md`.
+
+## Privacy
+
+Scans and reports are local-only. Nothing is sent off-device.
+
+Shareable reports replace local identity with placeholders (`<user>`, `<userprofile>`, `<home>`, `<host>`). Raw facts remain in the local SQLite DB for `awd status`; only rendered Markdown is redacted.
